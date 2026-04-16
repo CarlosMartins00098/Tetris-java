@@ -3,7 +3,7 @@ package com.mycompany.tetris;
 import javax.swing.JFrame;
 
 public class WindowGame {
-    public static final int WIDTH = 445, HEIGHT = 629;
+    public static final int WIDTH = 445, HEIGHT = 645;
         
     private Board board;
     private JFrame window;
@@ -18,7 +18,7 @@ public class WindowGame {
         
         board = new Board();
         window.add(board);
-        
+        window.addKeyListener(board);
         window.setVisible(true);
     }
 
