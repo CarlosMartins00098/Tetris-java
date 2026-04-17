@@ -87,7 +87,7 @@ public class Board extends JPanel implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if (e.getKeyChar() == KeyEvent.VK_DOWN) {
+        if (e.getKeyCode() == KeyEvent.VK_DOWN) {
             delayTimeForMovement = fast;
             
         }else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
@@ -99,7 +99,7 @@ public class Board extends JPanel implements KeyListener {
 
     @Override
     public void keyReleased(KeyEvent e) {
-        if (e.getKeyChar() == KeyEvent.VK_DOWN) {
+        if (e.getKeyCode() == KeyEvent.VK_DOWN) {
             delayTimeForMovement = normal;
             
         }
