@@ -32,6 +32,7 @@ public class Board extends JPanel implements KeyListener {
     private long beginTime;
     
     private int deltaX = 0;
+    private boolean collision = false;
 
     public Board() {
         looper = new Timer(delay, new ActionListener() {
@@ -40,8 +41,20 @@ public class Board extends JPanel implements KeyListener {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 if (System.currentTimeMillis() - beginTime > delayTimeForMovement) {
-                    x += deltaX;
+                    // check moving horizontal
+                    if (!(x + deltaX + shape[0].length >10) && !(x + deltaX < 0)) {
+                        x+= deltaX;
+                    }
                     deltaX = 0;
+                    if (System.currentTimeMillis() - beginTime > delayTimeForMovement) {
+                        if (!(y + 1 + shape.length > BOARD_HEIGHT)) {
+                            y++;
+                        }else  {
+                            collision = true;
+                        }
+                        
+                    }
+ 
                     y++;
                     beginTime = System.currentTimeMillis();
                 }
@@ -84,19 +97,21 @@ public class Board extends JPanel implements KeyListener {
 
     @Override
     public void keyTyped(KeyEvent e) {}
+    
+    
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-            delayTimeForMovement = fast;
-            
-        }else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-            deltaX = 1;
-        }else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-            deltaX = -1;
+        switch (e.getKeyCode()) {
+            case KeyEvent.VK_DOWN -> delayTimeForMovement = fast;
+            case KeyEvent.VK_RIGHT -> deltaX = 1;
+            case KeyEvent.VK_LEFT -> deltaX = -1;
+            default -> {
+            }
         }
     }
 
+    
     @Override
     public void keyReleased(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_DOWN) {
@@ -104,4 +119,6 @@ public class Board extends JPanel implements KeyListener {
             
         }
     }
+    
+    
 }
