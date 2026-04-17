@@ -30,6 +30,8 @@ public class Board extends JPanel implements KeyListener {
     private int fast = 50;
     private int delayTimeForMovement = normal;
     private long beginTime;
+    
+    private int deltaX = 0;
 
     public Board() {
         looper = new Timer(delay, new ActionListener() {
@@ -38,6 +40,8 @@ public class Board extends JPanel implements KeyListener {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 if (System.currentTimeMillis() - beginTime > delayTimeForMovement) {
+                    x += deltaX;
+                    deltaX = 0;
                     y++;
                     beginTime = System.currentTimeMillis();
                 }
@@ -83,15 +87,19 @@ public class Board extends JPanel implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if (e.getKeyChar() == KeyEvent.VK_D) {
+        if (e.getKeyChar() == KeyEvent.VK_DOWN) {
             delayTimeForMovement = fast;
             
+        }else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+            deltaX = 1;
+        }else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+            deltaX = -1;
         }
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-        if (e.getKeyChar() == KeyEvent.VK_D) {
+        if (e.getKeyChar() == KeyEvent.VK_DOWN) {
             delayTimeForMovement = normal;
             
         }
